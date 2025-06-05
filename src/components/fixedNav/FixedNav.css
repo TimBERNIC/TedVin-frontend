@@ -1,0 +1,25 @@
+.fixed-bottom-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: #dfdcdc solid 2px;
+  margin: 100px 0 30px;
+  padding: 20px 10px;
+  color: #5a6566;
+  margin-right: 5%;
+}
+.fixed-bottom-nav > ul {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: #5a6566;
+}
+.fixed-bottom-nav > ul > h3 {
+  color: #888d8d;
+}
+.fixed-bottom-nav > ul > li {
+  color: #a4a9a9;
+  font-size: 15px;
+  line-height: 24px;
+}

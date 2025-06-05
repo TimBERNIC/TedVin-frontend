@@ -1,12 +1,11 @@
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import firstImg from "../assets/img/first-img.jpg";
-import wide from "../assets/img/wide.jpg";
-import ProductMap from "../components/ProductMap";
+import firstImg from "../../assets/img/first-img.jpg";
+import wide from "../../assets/img/wide.jpg";
+import ProductMap from "../../components/productmap/ProductMap";
+import "../home/Home.css";
 
 const Home = ({ data }) => {
-  console.log(data);
-
   return (
     <>
       <section className="first-section">
@@ -28,10 +27,15 @@ const Home = ({ data }) => {
 
               return (
                 <div className="product-box" key={index}>
+                  <p className="avatar-box">
+                    <div className="avatar-logo-box">
+                      <img src={product.owner.account.avatar.url} alt="" />
+                    </div>
+                    {product.owner.account.username}
+                  </p>
                   <Link to={productWay_id} className="product-img-box">
                     <img src={product.product_image.secure_url} alt="" />
                   </Link>
-                  <div className="like-box">{product.product_name}</div>
                   <div className="product-details">
                     <p>{product.product_details[0].MARQUE}</p>
                     <p>

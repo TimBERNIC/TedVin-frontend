@@ -1,21 +1,41 @@
 import { useParams } from "react-router-dom";
-import ProductMap from "../components/ProductMap";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import ProductMap from "../../components/productmap/ProductMap";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
 
 const Offer = ({ data }) => {
   const params = useParams();
-  const foundItem = data.find((product) => {
-    return product._id === params.id;
-  });
-  console.log(foundItem);
+  const [offerData, setOfferData] = useState(null);
+  const [isLoading, setIsloading] = useState(true);
 
-  return (
+  console.log(offerData);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://lereacteur-vinted-api.herokuapp.com/offer/` + params.id
+        );
+        setOfferData(response.data);
+        setIsloading(false);
+      } catch (error) {
+        console.log(error.response);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return isLoading ? (
+    <p>Chargement en cours...</p>
+  ) : (
     <div className="offer-global-box">
       <div className="offer-central-box">
         <div className="offer-product-box">
-          {foundItem.product_pictures.map((picture, index) => {
+          {offerData.product_pictures.map((picture, index) => {
             return (
-              <div>
+              <div key={index}>
                 <img src={picture.secure_url} alt="" />
               </div>
             );
@@ -31,20 +51,19 @@ const Offer = ({ data }) => {
       </div>
       <div className="laterals-details">
         <div>
-          <div>{foundItem.product_name}</div>
-          <div>
-            {foundItem.product_details[1].TAILLE &&
-              foundItem.product_details[1].TAILLE}
-            ·
-            {foundItem.product_details[2].ETAT &&
-              foundItem.product_details[2].ETAT}
-            ·
-            {foundItem.product_details[4].EMPLACEMENT &&
-              foundItem.product_details[4].EMPLACEMENT}
-          </div>
-          <p>{foundItem.product_price.toFixed(2)} €</p>
+          <div>{offerData.product_name}</div>
+          {offerData.product_details.length <= 6 ? (
+            <div></div>
+          ) : (
+            <div>
+              {offerData.product_details[1].TAILLE}·
+              {offerData.product_details[2].ÉTAT}·
+              {offerData.product_details[4].EMPLACEMENT}
+            </div>
+          )}
+          <p>{offerData.product_price.toFixed(2)} €</p>
           <div className="final-price-box">
-            {(foundItem.product_price * 1.07).toFixed(2)} €
+            {(offerData.product_price * 1.07).toFixed(2)} €
             <p>
               inclus la Protection acheteur
               <IoShieldCheckmarkOutline />
@@ -52,14 +71,14 @@ const Offer = ({ data }) => {
           </div>
         </div>
         <p>
-          {foundItem.product_details[3].COULEUR &&
-            foundItem.product_details[3].COULEUR}
+          {offerData.product_details[2].COULEUR &&
+            offerData.product_details[2].COULEUR}
         </p>
         <div>
           <div>
             <span>Envoi </span>
             <span>
-              à partir de {(foundItem.product_price * 0.07).toFixed(2)} €
+              à partir de {(offerData.product_price * 0.07).toFixed(2)} €
             </span>
           </div>
           <div>

@@ -2,19 +2,21 @@ import { Link } from "react-router-dom";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
 
 const ProductMap = ({ data }) => {
-  console.log(data);
-
   return (
     <>
       {data.map((product, index) => {
         const productWay_id = `http://localhost:5173/item/${product._id}`;
-
         return (
           <div className="product-box" key={index}>
+            <p className="avatar-box">
+              <div className="avatar-logo-box">
+                <img src={product.owner.account.avatar.url} alt="" />
+              </div>
+              {product.owner.account.username}
+            </p>
             <Link to={productWay_id} className="product-img-box">
               <img src={product.product_image.secure_url} alt="" />
             </Link>
-            <div className="like-box">{product.product_name}</div>
             <div className="product-details">
               <p>{product.product_details[0].MARQUE}</p>
               <p>
