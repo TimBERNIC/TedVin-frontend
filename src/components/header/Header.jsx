@@ -1,8 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import vintedLogo from "../../assets/img/logo.svg";
 import "../header/Header.css";
-const Header = () => {
+import Cookies from "js-cookie";
+
+const Header = ({ isVisible, setIsVisible, token }) => {
+  const navigate = useNavigate();
+
   return (
     <>
       <header>
@@ -20,9 +23,26 @@ const Header = () => {
               <input type="text" className="principal-input" />
             </div>
             <div>
-              <button className="connection-button">
-                S'inscrire | Se connecter
-              </button>
+              {token ? (
+                <button
+                  onClick={() => {
+                    Cookies.remove("token");
+                    navigate("/");
+                  }}
+                  className="deconnection-button">
+                  Se déconnecter
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    navigate("/signup");
+                    setIsVisible(!isVisible);
+                  }}
+                  to="/signup"
+                  className="connection-button">
+                  S'inscrire | Se connecter
+                </button>
+              )}
               <button className="selling-button">Vendre tes articles</button>
               <div>
                 <button className="question-button">?</button>

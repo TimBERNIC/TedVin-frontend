@@ -1,5 +1,5 @@
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import firstImg from "../../assets/img/first-img.jpg";
 import wide from "../../assets/img/wide.jpg";
 import ProductMap from "../../components/productmap/ProductMap";
@@ -27,12 +27,12 @@ const Home = ({ data }) => {
 
               return (
                 <div className="product-box" key={index}>
-                  <p className="avatar-box">
+                  <div className="avatar-box">
                     <div className="avatar-logo-box">
                       <img src={product.owner.account.avatar.url} alt="" />
                     </div>
                     {product.owner.account.username}
-                  </p>
+                  </div>
                   <Link to={productWay_id} className="product-img-box">
                     <img src={product.product_image.secure_url} alt="" />
                   </Link>

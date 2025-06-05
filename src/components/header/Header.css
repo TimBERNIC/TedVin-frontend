@@ -22,16 +22,47 @@ header {
   height: 36px;
 }
 .connection-button {
+  width: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: #02757f solid 1px;
+  height: 36px;
   border-radius: 5px;
   background-color: white;
   color: #02757f;
+  font-size: 14px;
+}
+.connection-button:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.deconnection-button {
+  width: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 36px;
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 14px;
+  background-color: #c1185b;
+  border: none;
+}
+.deconnection-button:hover {
+  opacity: 0.7;
+  cursor: pointer;
 }
 .selling-button {
   background-color: #02757f;
   border-radius: 5px;
   color: white;
   border: none;
+}
+.selling-button:hover {
+  cursor: pointer;
+  opacity: 0.7;
 }
 
 .question-button {

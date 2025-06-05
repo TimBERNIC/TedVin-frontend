@@ -51,16 +51,16 @@ const Offer = ({ data }) => {
       </div>
       <div className="laterals-details">
         <div>
-          <div>{offerData.product_name}</div>
+          {/* <div>{offerData.product_name}</div>
           {offerData.product_details.length <= 6 ? (
             <div></div>
-          ) : (
-            <div>
-              {offerData.product_details[1].TAILLE}·
-              {offerData.product_details[2].ÉTAT}·
-              {offerData.product_details[4].EMPLACEMENT}
-            </div>
-          )}
+          ) : ( */}
+          <div>
+            {offerData.product_details[1]?.TAILLE}·
+            {offerData.product_details[2]?.ÉTAT}·
+            {offerData.product_details[4]?.EMPLACEMENT}
+          </div>
+          {/* )} */}
           <p>{offerData.product_price.toFixed(2)} €</p>
           <div className="final-price-box">
             {(offerData.product_price * 1.07).toFixed(2)} €

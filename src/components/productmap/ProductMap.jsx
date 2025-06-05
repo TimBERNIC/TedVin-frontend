@@ -8,12 +8,12 @@ const ProductMap = ({ data }) => {
         const productWay_id = `http://localhost:5173/item/${product._id}`;
         return (
           <div className="product-box" key={index}>
-            <p className="avatar-box">
+            <div className="avatar-box">
               <div className="avatar-logo-box">
                 <img src={product.owner.account.avatar.url} alt="" />
               </div>
               {product.owner.account.username}
-            </p>
+            </div>
             <Link to={productWay_id} className="product-img-box">
               <img src={product.product_image.secure_url} alt="" />
             </Link>
