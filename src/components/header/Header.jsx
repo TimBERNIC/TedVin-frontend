@@ -3,7 +3,7 @@ import vintedLogo from "../../assets/img/logo.svg";
 import "../header/Header.css";
 import Cookies from "js-cookie";
 
-const Header = ({ isVisible, setIsVisible, token }) => {
+const Header = ({ isVisible, setIsVisible, token, setToken, setRegister }) => {
   const navigate = useNavigate();
 
   return (
@@ -26,8 +26,9 @@ const Header = ({ isVisible, setIsVisible, token }) => {
               {token ? (
                 <button
                   onClick={() => {
+                    setRegister(false);
+                    setToken(null);
                     Cookies.remove("token");
-                    navigate("/");
                   }}
                   className="deconnection-button">
                   Se déconnecter

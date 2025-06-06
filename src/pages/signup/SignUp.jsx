@@ -4,12 +4,12 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
-const SignUp = ({ setIsVisible }) => {
+const SignUp = ({ setIsVisible, setToken, register, setRegister }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newsletter, setNewsletter] = useState(false);
-  const [hasToken, setHasToken] = useState(false);
+
   const navigate = useNavigate();
 
   const sendFormLogin = async () => {
@@ -21,7 +21,10 @@ const SignUp = ({ setIsVisible }) => {
           password: password,
         }
       );
-      Cookies.set("token", response.data.token, { expires: 7 });
+      if (response.data.token) {
+        setToken(response.data.token);
+        Cookies.set("token", response.data.token, { expires: 7 });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -38,7 +41,10 @@ const SignUp = ({ setIsVisible }) => {
           newsletter: newsletter,
         }
       );
-      Cookies.set("token", response.data.token, { expires: 7 });
+      if (response.data.token) {
+        setToken(response.data.token);
+        Cookies.set("token", response.data.token, { expires: 7 });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -57,11 +63,12 @@ const SignUp = ({ setIsVisible }) => {
           X
         </button>
 
-        {hasToken ? (
+        {register ? (
           <form
             onSubmit={(event) => {
               event.preventDefault();
               sendFormLogin();
+              setIsVisible(false);
               navigate("/");
             }}>
             <h3>Se connecter</h3>
@@ -144,10 +151,10 @@ const SignUp = ({ setIsVisible }) => {
             </form>
           </>
         )}
-        {!hasToken ? (
+        {!register ? (
           <div
             onClick={() => {
-              setHasToken(!hasToken);
+              setRegister(!register);
             }}
             className="switch-form-box">
             Tu as déjà un compte? Connecte-toi!
@@ -155,7 +162,7 @@ const SignUp = ({ setIsVisible }) => {
         ) : (
           <div
             onClick={() => {
-              setHasToken(!hasToken);
+              setRegister(!register);
             }}
             className="switch-form-box">
             Pas encore de compte? Inscris-toi!

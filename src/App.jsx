@@ -20,8 +20,8 @@ function App() {
   const [data, setData] = useState(null);
   const [isLoading, setIsloading] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
-
   const [token, setToken] = useState(Cookies.get("token") || null);
+  const [register, setRegister] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,6 +46,8 @@ function App() {
           isVisible={isVisible}
           setIsVisible={setIsVisible}
           token={token}
+          setToken={setToken}
+          setRegister={setRegister}
         />
         {isLoading ? (
           <p>Chargement en cours...</p>
@@ -55,16 +57,18 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home data={data} />}></Route>
                 <Route path="/item/:id" element={<Offer data={data} />}></Route>
-                {isVisible && (
-                  <Route
-                    path="/signup"
-                    element={
+                <Route
+                  path="/signup"
+                  element={
+                    isVisible && (
                       <SignUp
-                        isVisible={isVisible}
                         setIsVisible={setIsVisible}
+                        setToken={setToken}
+                        register={register}
+                        setRegister={setRegister}
                       />
-                    }></Route>
-                )}
+                    )
+                  }></Route>
               </Routes>
               <FixedNav />
             </div>
