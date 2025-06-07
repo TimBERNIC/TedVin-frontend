@@ -1,11 +1,21 @@
 import { Link } from "react-router-dom";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
+import { useEffect } from "react";
 
-const ProductMap = ({ data }) => {
+const ProductMap = ({
+  data,
+  minPrice,
+  setMinPrice,
+  maxPrice,
+  setMaxPrice,
+  searchingWord,
+  setSearchingWord,
+}) => {
   return (
     <>
       {data.map((product, index) => {
         const productWay_id = `http://localhost:5173/item/${product._id}`;
+
         return (
           <div className="product-box" key={index}>
             <div className="avatar-box">

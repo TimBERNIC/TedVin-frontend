@@ -22,12 +22,17 @@ function App() {
   const [isVisible, setIsVisible] = useState(false);
   const [token, setToken] = useState(Cookies.get("token") || null);
   const [register, setRegister] = useState(false);
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(0);
+  const [searchingWord, setSearchingWord] = useState("");
+  console.log(data);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://lereacteur-vinted-api.herokuapp.com/offers"
+          "https://lereacteur-vinted-api.herokuapp.com/offers" +
+            `?priceMin=${minPrice}&priceMax=${maxPrice}`
         );
         setData(response.data.offers);
         setIsloading(false);
@@ -48,6 +53,12 @@ function App() {
           token={token}
           setToken={setToken}
           setRegister={setRegister}
+          minPrice={minPrice}
+          setMinPrice={setMinPrice}
+          maxPrice={maxPrice}
+          setMaxPrice={setMaxPrice}
+          searchingWord={searchingWord}
+          setSearchingWord={setSearchingWord}
         />
         {isLoading ? (
           <p>Chargement en cours...</p>
@@ -55,8 +66,32 @@ function App() {
           <main>
             <div className="container">
               <Routes>
-                <Route path="/" element={<Home data={data} />}></Route>
-                <Route path="/item/:id" element={<Offer data={data} />}></Route>
+                <Route
+                  path="/"
+                  element={
+                    <Home
+                      data={data}
+                      minPrice={minPrice}
+                      setMinPrice={setMinPrice}
+                      maxPrice={maxPrice}
+                      setMaxPrice={setMaxPrice}
+                      searchingWord={searchingWord}
+                      setSearchingWord={setSearchingWord}
+                    />
+                  }></Route>
+                <Route
+                  path="/item/:id"
+                  element={
+                    <Offer
+                      data={data}
+                      minPrice={minPrice}
+                      setMinPrice={setMinPrice}
+                      maxPrice={maxPrice}
+                      setMaxPrice={setMaxPrice}
+                      searchingWord={searchingWord}
+                      setSearchingWord={setSearchingWord}
+                    />
+                  }></Route>
                 <Route
                   path="/signup"
                   element={

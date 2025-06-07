@@ -9,6 +9,7 @@ const SignUp = ({ setIsVisible, setToken, register, setRegister }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newsletter, setNewsletter] = useState(false);
+  const [error, setError] = useState(false);
 
   const navigate = useNavigate();
 
@@ -23,10 +24,13 @@ const SignUp = ({ setIsVisible, setToken, register, setRegister }) => {
       );
       if (response.data.token) {
         setToken(response.data.token);
+        setError(false);
         Cookies.set("token", response.data.token, { expires: 7 });
+        navigate("/");
       }
     } catch (error) {
-      console.log(error);
+      setError(true);
+      console.log(error.response);
     }
   };
 
@@ -43,10 +47,13 @@ const SignUp = ({ setIsVisible, setToken, register, setRegister }) => {
       );
       if (response.data.token) {
         setToken(response.data.token);
+        setError(false);
         Cookies.set("token", response.data.token, { expires: 7 });
+        navigate("/");
       }
     } catch (error) {
-      console.log(error);
+      setError(true);
+      console.log(error.response);
     }
   };
 
@@ -58,7 +65,6 @@ const SignUp = ({ setIsVisible, setToken, register, setRegister }) => {
             setIsVisible(false);
             navigate("/");
           }}
-          to="/"
           className="close-signup-button">
           X
         </button>
@@ -68,8 +74,6 @@ const SignUp = ({ setIsVisible, setToken, register, setRegister }) => {
             onSubmit={(event) => {
               event.preventDefault();
               sendFormLogin();
-              setIsVisible(false);
-              navigate("/");
             }}>
             <h3>Se connecter</h3>
             <input
@@ -90,6 +94,11 @@ const SignUp = ({ setIsVisible, setToken, register, setRegister }) => {
                 setPassword(event.target.value);
               }}
             />
+            {error && (
+              <div className="error-box">
+                Email et/ou Mot de passe invalide{" "}
+              </div>
+            )}
             <button>Se connecter</button>
           </form>
         ) : (
@@ -98,7 +107,6 @@ const SignUp = ({ setIsVisible, setToken, register, setRegister }) => {
               onSubmit={(event) => {
                 event.preventDefault();
                 sendFormSignup();
-                navigate("/");
               }}
               action="">
               <h3>S'inscrire</h3>
@@ -141,6 +149,12 @@ const SignUp = ({ setIsVisible, setToken, register, setRegister }) => {
 
                   <p>S'inscrire à notre newsletter</p>
                 </div>
+                {error && (
+                  <div className="error-box">
+                    Veuillez rentrer, un nom d'utilisateur, un email et un mot
+                    de passe valide
+                  </div>
+                )}
                 <p>
                   En m'inscrivant je confirme avoir lu et accepté les Termes &
                   Conditions et Politique de Confidentialité de Vinted. Je

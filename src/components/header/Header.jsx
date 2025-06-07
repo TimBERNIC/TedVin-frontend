@@ -1,10 +1,63 @@
 import { Link, useNavigate } from "react-router-dom";
+import React, { Component } from "react";
 import vintedLogo from "../../assets/img/logo.svg";
 import "../header/Header.css";
 import Cookies from "js-cookie";
+import Switch from "react-switch";
+import { useState } from "react";
 
-const Header = ({ isVisible, setIsVisible, token, setToken, setRegister }) => {
+const Header = ({
+  isVisible,
+  setIsVisible,
+  token,
+  setToken,
+  setRegister,
+  minPrice,
+  setMinPrice,
+  maxPrice,
+  setMaxPrice,
+  searchingWord,
+  setSearchingWord,
+}) => {
   const navigate = useNavigate();
+
+  //matérial design switch
+  class MaterialDesignSwitch extends Component {
+    constructor() {
+      super();
+      this.state = { checked: false };
+      this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(checked) {
+      this.setState({ checked });
+    }
+
+    render() {
+      return (
+        <div className="switch-bloc">
+          <label htmlFor="material-switch">
+            <span>Trier par prix : </span>
+            <Switch
+              checked={this.state.checked}
+              onChange={this.handleChange}
+              onColor="#86d3ff"
+              onHandleColor="#2693e6"
+              handleDiameter={20}
+              uncheckedIcon={false}
+              checkedIcon={false}
+              boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+              activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+              height={25}
+              width={48}
+              className="react-switch"
+              id="material-switch"
+            />
+          </label>
+        </div>
+      );
+    }
+  }
 
   return (
     <>
@@ -20,7 +73,14 @@ const Header = ({ isVisible, setIsVisible, token, setToken, setRegister }) => {
                 <option value="">Membres</option>
                 <option value="">Centre d'aide</option>
               </select>
-              <input type="text" className="principal-input" />
+              <input
+                type="text"
+                className="principal-input"
+                value={searchingWord}
+                onChange={(event) => {
+                  setSearchingWord(event.target.value);
+                }}
+              />
             </div>
             <div>
               {token ? (
@@ -59,17 +119,35 @@ const Header = ({ isVisible, setIsVisible, token, setToken, setRegister }) => {
           </div>
         </div>
         <nav className="router-nav">
-          <Link className="nav-button">Femmes</Link>
-          <Link className="nav-button">Hommes</Link>
-          <Link className="nav-button">Articles de créateurs</Link>
-          <Link className="nav-button">Enfants</Link>
-          <Link className="nav-button">Maison</Link>
-          <Link className="nav-button">Electronique</Link>
-          <Link className="nav-button">Divertissement</Link>
-          <Link className="nav-button">Sport</Link>
-          <Link className="nav-button">Animaux</Link>
-          <Link className="nav-button">A propos</Link>
-          <Link className="nav-button">Notre plateforme</Link>
+          <div className="switch-box">
+            <MaterialDesignSwitch />
+          </div>
+          <div className="range-box">
+            <div>prix min : {minPrice}</div>
+            <input
+              type="range"
+              name="min-price"
+              placeholder="min"
+              value={minPrice}
+              onChange={(event) => {
+                setMinPrice(event.target.value);
+              }}
+              min="0"
+              max="500"
+            />
+            <div>prix max : {maxPrice}</div>
+            <input
+              type="range"
+              name="max-price"
+              placeholder="max"
+              value={maxPrice}
+              onChange={(event) => {
+                setMaxPrice(event.target.value);
+              }}
+              min="0"
+              max="500"
+            />{" "}
+          </div>
         </nav>
       </header>
     </>

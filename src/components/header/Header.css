@@ -126,3 +126,20 @@ nav {
 .nav-button:hover {
   background-color: rgb(249, 249, 249);
 }
+
+.range-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 800px;
+}
+
+.switch-bloc > label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 2px rgb(0, 9, 179);
+  flex-direction: row;
+  width: 200px;
+  gap: 5px;
+}

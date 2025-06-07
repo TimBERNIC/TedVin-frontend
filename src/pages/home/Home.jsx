@@ -5,7 +5,15 @@ import wide from "../../assets/img/wide.jpg";
 import ProductMap from "../../components/productmap/ProductMap";
 import "../home/Home.css";
 
-const Home = ({ data }) => {
+const Home = ({
+  data,
+  minPrice,
+  setMinPrice,
+  maxPrice,
+  setMaxPrice,
+  searchingWord,
+  setSearchingWord,
+}) => {
   return (
     <>
       <section className="first-section">
@@ -21,51 +29,16 @@ const Home = ({ data }) => {
       <section className="second-section">
         <h2>Fil d'actu</h2>
         <div className="products-box">
-          {data.map((product, index) => {
-            if (index < 10) {
-              const productWay_id = `http://localhost:5173/item/${product._id}`;
-
-              return (
-                <div className="product-box" key={index}>
-                  <div className="avatar-box">
-                    <div className="avatar-logo-box">
-                      <img src={product.owner.account.avatar.url} alt="" />
-                    </div>
-                    {product.owner.account.username}
-                  </div>
-                  <Link to={productWay_id} className="product-img-box">
-                    <img src={product.product_image.secure_url} alt="" />
-                  </Link>
-                  <div className="product-details">
-                    <p>{product.product_details[0].MARQUE}</p>
-                    <p>
-                      {product.product_details[1].TAILLE} -
-                      {product.product_details[2].ETAT}
-                    </p>
-                    <p>{product.product_price.toFixed(2)} €</p>
-                    <p className="final-price-box">
-                      {(product.product_price * 1.07).toFixed(2)} € incl.
-                      <IoShieldCheckmarkOutline />
-                    </p>
-                  </div>
-                </div>
-              );
-            }
-          })}
+          <ProductMap
+            data={data}
+            minPrice={minPrice}
+            setMinPrice={setMinPrice}
+            maxPrice={maxPrice}
+            setMaxPrice={setMaxPrice}
+            searchingWord={searchingWord}
+            setSearchingWord={setSearchingWord}
+          />
         </div>
-      </section>
-      <section className="third-section">
-        <img src={wide} alt="fond avec apareil tech" />
-        <div className="s3-text">
-          <div>
-            <p>Nouveau</p>
-            <p>Vend tes appareils électroniques sans frais de vente</p>
-          </div>
-          <button>Commencer à vendre</button>
-        </div>
-      </section>
-      <section className="fourth-section">
-        <ProductMap data={data} />
       </section>
     </>
   );
