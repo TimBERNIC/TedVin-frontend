@@ -3,8 +3,6 @@ import React, { Component } from "react";
 import vintedLogo from "../../assets/img/logo.svg";
 import "../header/Header.css";
 import Cookies from "js-cookie";
-import Switch from "react-switch";
-import { useState } from "react";
 
 const Header = ({
   isVisible,
@@ -18,46 +16,17 @@ const Header = ({
   setMaxPrice,
   searchingWord,
   setSearchingWord,
+  fetchData,
+  sortButtonActive,
+  setSortButtonActive,
 }) => {
   const navigate = useNavigate();
 
-  //matérial design switch
-  class MaterialDesignSwitch extends Component {
-    constructor() {
-      super();
-      this.state = { checked: false };
-      this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange(checked) {
-      this.setState({ checked });
-    }
-
-    render() {
-      return (
-        <div className="switch-bloc">
-          <label htmlFor="material-switch">
-            <span>Trier par prix : </span>
-            <Switch
-              checked={this.state.checked}
-              onChange={this.handleChange}
-              onColor="#86d3ff"
-              onHandleColor="#2693e6"
-              handleDiameter={20}
-              uncheckedIcon={false}
-              checkedIcon={false}
-              boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-              activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-              height={25}
-              width={48}
-              className="react-switch"
-              id="material-switch"
-            />
-          </label>
-        </div>
-      );
-    }
-  }
+  const FilterUrl = sortButtonActive
+    ? "https://lereacteur-vinted-api.herokuapp.com/v2/offers" +
+      `?sort=price-asc&title=${searchingWord}&priceMin=${minPrice}&priceMax=${maxPrice}`
+    : "https://lereacteur-vinted-api.herokuapp.com/v2/offers" +
+      `?sort=price-desc&title=${searchingWord}&priceMin=${minPrice}&priceMax=${maxPrice}`;
 
   return (
     <>
@@ -120,7 +89,15 @@ const Header = ({
         </div>
         <nav className="router-nav">
           <div className="switch-box">
-            <MaterialDesignSwitch />
+            <p>Prix croiss/décroiss</p>
+            <input
+              type="checkbox"
+              value={sortButtonActive}
+              onChange={() => {
+                setSortButtonActive(!sortButtonActive);
+                fetchData(FilterUrl);
+              }}
+            />
           </div>
           <div className="range-box">
             <div>prix min : {minPrice}</div>
@@ -131,6 +108,7 @@ const Header = ({
               value={minPrice}
               onChange={(event) => {
                 setMinPrice(event.target.value);
+                fetchData(FilterUrl);
               }}
               min="0"
               max="500"
@@ -143,6 +121,7 @@ const Header = ({
               value={maxPrice}
               onChange={(event) => {
                 setMaxPrice(event.target.value);
+                fetchData(FilterUrl);
               }}
               min="0"
               max="500"
