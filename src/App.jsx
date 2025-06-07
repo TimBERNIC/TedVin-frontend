@@ -17,7 +17,7 @@ import SignUp from "./pages/signup/SignUp";
 import Cookies from "js-cookie";
 
 function App() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [isLoading, setIsloading] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
   const [token, setToken] = useState(Cookies.get("token") || null);
@@ -31,7 +31,7 @@ function App() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://lereacteur-vinted-api.herokuapp.com/offers" +
+          "https://lereacteur-vinted-api.herokuapp.com/v2/offers" +
             `?priceMin=${minPrice}&priceMax=${maxPrice}`
         );
         setData(response.data.offers);
