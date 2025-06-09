@@ -81,3 +81,9 @@
   gap: 10px;
   margin-top: 40px;
 }
+
+.home-products-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}

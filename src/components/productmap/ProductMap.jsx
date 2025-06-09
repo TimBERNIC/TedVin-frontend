@@ -1,16 +1,9 @@
 import { Link } from "react-router-dom";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import { useEffect } from "react";
+import "../productmap/ProductMap.css";
 
-const ProductMap = ({
-  data,
-  minPrice,
-  setMinPrice,
-  maxPrice,
-  setMaxPrice,
-  searchingWord,
-  setSearchingWord,
-}) => {
+const ProductMap = ({ data }) => {
   return (
     <>
       {data.map((product, index) => {
@@ -20,7 +13,11 @@ const ProductMap = ({
           <div className="product-box" key={index}>
             <div className="avatar-box">
               <div className="avatar-logo-box">
-                <img src={product.owner.account.avatar.url} alt="" />
+                {product.owner.account.avatar ? (
+                  <img src={product.owner.account.avatar.url} alt="" />
+                ) : (
+                  <img></img>
+                )}
               </div>
               {product.owner.account.username}
             </div>

@@ -15,6 +15,7 @@ import FixedNav from "./components/fixedNav/FixedNav";
 import Footer from "./components/footer/Footer";
 import SignUp from "./pages/signup/SignUp";
 import Cookies from "js-cookie";
+import Publish from "./pages/publish/Publish";
 
 function App() {
   const [data, setData] = useState([]);
@@ -22,27 +23,48 @@ function App() {
   const [isVisible, setIsVisible] = useState(false);
   const [token, setToken] = useState(Cookies.get("token") || null);
   const [register, setRegister] = useState(false);
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(500);
+  const [priceMin, setPriceMin] = useState(0);
+  const [priceMax, setPriceMax] = useState(500);
   const [searchingWord, setSearchingWord] = useState("");
-  const [sortButtonActive, setSortButtonActive] = useState(true);
+  const [sort, setSort] = useState("price-asc");
   const regex = new RegExp({ searchingWord }, "i");
 
-  const Url = "https://lereacteur-vinted-api.herokuapp.com/v2/offers";
+  // const Url = "https://lereacteur-vinted-api.herokuapp.com/v2/offers";
 
-  const fetchData = async (url) => {
-    try {
-      const response = await axios.get(url);
-
-      setData(response.data.offers);
-      setIsloading(false);
-    } catch (error) {
-      console.log(error.response);
-    }
-  };
   useEffect(() => {
-    fetchData(Url);
-  }, []);
+    const fetchData = async () => {
+      let filters = "";
+      if (searchingWord) {
+        filters = filters + `?title=${searchingWord}`;
+      }
+      if (priceMin) {
+        if (filters) {
+          filters = filters + `&priceMin=${priceMin}`;
+        } else {
+          filters = filters + `?priceMin=${priceMin}`;
+        }
+      }
+      if (priceMax) {
+        if (filters) {
+          filters = filters + `&priceMax=${priceMax}`;
+        } else {
+          filters = filters + `?priceMax=${priceMax}`;
+        }
+      }
+
+      try {
+        const response = await axios.get(
+          `https://lereacteur-vinted-api.herokuapp.com/v2/offers?sort=${sort}${filters}`
+        );
+
+        setData(response.data.offers);
+        setIsloading(false);
+      } catch (error) {
+        console.log(error.response);
+      }
+    };
+    fetchData();
+  }, [searchingWord, priceMin, priceMax, sort]);
 
   return (
     <>
@@ -53,64 +75,46 @@ function App() {
           token={token}
           setToken={setToken}
           setRegister={setRegister}
-          minPrice={minPrice}
-          setMinPrice={setMinPrice}
-          maxPrice={maxPrice}
-          setMaxPrice={setMaxPrice}
+          priceMin={priceMin}
+          setPriceMin={setPriceMin}
+          priceMax={priceMax}
+          setPriceMax={setPriceMax}
           searchingWord={searchingWord}
           setSearchingWord={setSearchingWord}
-          fetchData={fetchData}
-          sortButtonActive={sortButtonActive}
-          setSortButtonActive={setSortButtonActive}
+          sort={sort}
+          setSort={setSort}
         />
         {isLoading ? (
           <p>Chargement en cours...</p>
         ) : (
-          <main>
-            <div className="container">
-              <Routes>
-                <Route
-                  path="/"
-                  element={
-                    <Home
-                      data={data}
-                      minPrice={minPrice}
-                      setMinPrice={setMinPrice}
-                      maxPrice={maxPrice}
-                      setMaxPrice={setMaxPrice}
-                      searchingWord={searchingWord}
-                      setSearchingWord={setSearchingWord}
+          <div>
+            <Routes>
+              <Route path="/" element={<Home data={data} />}></Route>
+              <Route path="/item/:id" element={<Offer data={data} />}></Route>
+              <Route
+                path="/signup"
+                element={
+                  isVisible && (
+                    <SignUp
+                      setIsVisible={setIsVisible}
+                      setToken={setToken}
+                      register={register}
+                      setRegister={setRegister}
                     />
-                  }></Route>
-                <Route
-                  path="/item/:id"
-                  element={
-                    <Offer
-                      data={data}
-                      minPrice={minPrice}
-                      setMinPrice={setMinPrice}
-                      maxPrice={maxPrice}
-                      setMaxPrice={setMaxPrice}
-                      searchingWord={searchingWord}
-                      setSearchingWord={setSearchingWord}
-                    />
-                  }></Route>
-                <Route
-                  path="/signup"
-                  element={
-                    isVisible && (
-                      <SignUp
-                        setIsVisible={setIsVisible}
-                        setToken={setToken}
-                        register={register}
-                        setRegister={setRegister}
-                      />
-                    )
-                  }></Route>
-              </Routes>
-              <FixedNav />
-            </div>
-          </main>
+                  )
+                }></Route>
+              <Route
+                path="/publish"
+                element={
+                  <Publish
+                    token={token}
+                    isVisible={isVisible}
+                    setIsVisible={setIsVisible}
+                  />
+                }></Route>
+            </Routes>
+            <FixedNav />
+          </div>
         )}
         <Footer />
       </Router>

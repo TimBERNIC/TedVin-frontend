@@ -5,17 +5,9 @@ import wide from "../../assets/img/wide.jpg";
 import ProductMap from "../../components/productmap/ProductMap";
 import "../home/Home.css";
 
-const Home = ({
-  data,
-  minPrice,
-  setMinPrice,
-  maxPrice,
-  setMaxPrice,
-  searchingWord,
-  setSearchingWord,
-}) => {
+const Home = ({ data }) => {
   return (
-    <>
+    <main className="home-box container">
       <section className="first-section">
         <div className="firstsection-img-div">
           <img src={firstImg} alt="femme devant un miroir avec son téléphone" />
@@ -28,19 +20,11 @@ const Home = ({
       </section>
       <section className="second-section">
         <h2>Fil d'actu</h2>
-        <div className="products-box">
-          <ProductMap
-            data={data}
-            minPrice={minPrice}
-            setMinPrice={setMinPrice}
-            maxPrice={maxPrice}
-            setMaxPrice={setMaxPrice}
-            searchingWord={searchingWord}
-            setSearchingWord={setSearchingWord}
-          />
+        <div className="home-products-box">
+          <ProductMap data={data} />
         </div>
       </section>
-    </>
+    </main>
   );
 };
 

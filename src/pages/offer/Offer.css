@@ -1,0 +1,22 @@
+.offer-global-box {
+  display: flex;
+}
+.offer-central-box {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+.offer-product-box {
+  width: 100%;
+}
+.products-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.final-price-box {
+  display: flex;
+  align-items: center;
+  color: #027782;
+}

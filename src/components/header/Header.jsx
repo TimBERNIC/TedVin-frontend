@@ -10,23 +10,16 @@ const Header = ({
   token,
   setToken,
   setRegister,
-  minPrice,
-  setMinPrice,
-  maxPrice,
-  setMaxPrice,
+  priceMin,
+  setPriceMin,
+  priceMax,
+  setPriceMax,
   searchingWord,
   setSearchingWord,
-  fetchData,
-  sortButtonActive,
-  setSortButtonActive,
+  sort,
+  setSort,
 }) => {
   const navigate = useNavigate();
-
-  const FilterUrl = sortButtonActive
-    ? "https://lereacteur-vinted-api.herokuapp.com/v2/offers" +
-      `?sort=price-asc&title=${searchingWord}&priceMin=${minPrice}&priceMax=${maxPrice}`
-    : "https://lereacteur-vinted-api.herokuapp.com/v2/offers" +
-      `?sort=price-desc&title=${searchingWord}&priceMin=${minPrice}&priceMax=${maxPrice}`;
 
   return (
     <>
@@ -73,7 +66,13 @@ const Header = ({
                   S'inscrire | Se connecter
                 </button>
               )}
-              <button className="selling-button">Vendre tes articles</button>
+              <button
+                className="selling-button"
+                onClick={() => {
+                  navigate("/publish");
+                }}>
+                Vendre tes articles
+              </button>
               <div>
                 <button className="question-button">?</button>
               </div>
@@ -92,36 +91,33 @@ const Header = ({
             <p>Prix croiss/décroiss</p>
             <input
               type="checkbox"
-              value={sortButtonActive}
+              value={sort}
               onChange={() => {
-                setSortButtonActive(!sortButtonActive);
-                fetchData(FilterUrl);
+                setSort(sort === "price-desc" ? "price-asc" : "price-desc");
               }}
             />
           </div>
           <div className="range-box">
-            <div>prix min : {minPrice}</div>
+            <div>prix min : {priceMin}</div>
             <input
               type="range"
-              name="min-price"
+              name="price-min"
               placeholder="min"
-              value={minPrice}
+              value={priceMin}
               onChange={(event) => {
-                setMinPrice(event.target.value);
-                fetchData(FilterUrl);
+                setPriceMin(event.target.value);
               }}
               min="0"
               max="500"
             />
-            <div>prix max : {maxPrice}</div>
+            <div>prix max : {priceMax}</div>
             <input
               type="range"
-              name="max-price"
+              name="price-max"
               placeholder="max"
-              value={maxPrice}
+              value={priceMax}
               onChange={(event) => {
-                setMaxPrice(event.target.value);
-                fetchData(FilterUrl);
+                setPriceMax(event.target.value);
               }}
               min="0"
               max="500"

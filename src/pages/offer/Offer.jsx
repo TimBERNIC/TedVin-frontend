@@ -4,15 +4,7 @@ import { useEffect, useState } from "react";
 import ProductMap from "../../components/productmap/ProductMap";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
 
-const Offer = ({
-  data,
-  minPrice,
-  setMinPrice,
-  maxPrice,
-  setMaxPrice,
-  searchingWord,
-  setSearchingWord,
-}) => {
+const Offer = ({ data }) => {
   const params = useParams();
   const [offerData, setOfferData] = useState(null);
   const [isLoading, setIsloading] = useState(true);
