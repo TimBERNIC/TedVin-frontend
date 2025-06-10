@@ -5,8 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const Publish = ({ token, isVisible, setIsVisible }) => {
   const navigate = useNavigate();
-
-  const [picture, setPicture] = useState({});
+  const [picture, setPicture] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [condition, setCondition] = useState("");
@@ -14,11 +13,11 @@ const Publish = ({ token, isVisible, setIsVisible }) => {
   const [size, setSize] = useState("");
   const [color, setColor] = useState("");
   const [city, setCity] = useState("");
-  const [localisation, setLocalisation] = useState("");
-  const [price, setPrice] = useState();
+  const [price, setPrice] = useState("");
 
   return (
-    <main className="form-box">
+    <main className="form-box container">
+      <h3>Vend ton article</h3>
       <form
         onSubmit={async (event) => {
           event.preventDefault();
@@ -31,10 +30,13 @@ const Publish = ({ token, isVisible, setIsVisible }) => {
           formData.append("brand", brand);
           formData.append("size", size);
           formData.append("color", color);
+
           for (let i = 0; i < picture.length; i++) {
             formData.append("picture", picture[i]);
           }
-
+          // for (let pairClefValeur of formData.entries()) {
+          //   console.log(pairClefValeur[0] + ", " + pairClefValeur[1]);
+          // }
           try {
             const response = await axios.post(
               "https://lereacteur-vinted-api.herokuapp.com/offer/publish",
@@ -47,6 +49,8 @@ const Publish = ({ token, isVisible, setIsVisible }) => {
               }
             );
             console.log(response);
+            alert("Annonce déposée!");
+            navigate("/");
           } catch (error) {
             console.log(error.response);
             error.response.status === 401 && navigate("/signup");
@@ -54,19 +58,31 @@ const Publish = ({ token, isVisible, setIsVisible }) => {
           }
         }}>
         <div className="box">
-          <div className="box2 picture-box">
-            <label htmlFor="pictures">
-              <span>+</span> Ajoute une photo{" "}
-            </label>
-            <input
-              type="file"
-              id="pictures"
-              className="display"
-              multiple={true}
-              onChange={(event) => {
-                setPicture(event.target.files[0]);
-              }}
-            />
+          <div className="picture-box">
+            <div className="picture-box2">
+              {picture ? (
+                <div className="pictures-label"> Image(s) déposée(s) !</div>
+              ) : (
+                <>
+                  <label htmlFor="pictures" className="pictures-label">
+                    <span>+</span> Ajoute une photo{" "}
+                  </label>
+                  <input
+                    type="file"
+                    id="pictures"
+                    className="display"
+                    multiple={true}
+                    onChange={(event) => {
+                      const pictureTab = [];
+                      for (let i = 0; i < event.target.files.length; i++) {
+                        pictureTab.push(event.target.files[i]);
+                      }
+                      setPicture(pictureTab);
+                    }}
+                  />
+                </>
+              )}
+            </div>
           </div>
         </div>
 
@@ -96,7 +112,7 @@ const Publish = ({ token, isVisible, setIsVisible }) => {
             />
           </div>
         </div>
-        <div className="box">
+        <div className="box details-box">
           <div className="box2 brand-box">
             <label htmlFor="brand">Marque</label>
             <input
@@ -173,7 +189,7 @@ const Publish = ({ token, isVisible, setIsVisible }) => {
               placeholder="0,00€"
             />
           </div>
-          <div className="box2 checkbox-box">
+          <div className="checkbox-box">
             <input type="checkbox" id="trade-accepted" />
             <label htmlFor="trade-accepted">
               Je suis intéressé(e) par les échanges

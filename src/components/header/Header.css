@@ -2,16 +2,23 @@ header {
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 80px;
+  background-color: white;
+}
+header > div {
+  width: 100%;
+  padding-top: 5px;
 }
 .first-header-line {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   width: 100%;
   height: 44px;
 }
 .first-header-line > div {
   display: flex;
+  flex: 1;
   align-items: center;
   height: 100%;
 }
@@ -20,6 +27,12 @@ header {
 .first-header-line > div > select,
 .first-header-line > div > input {
   height: 36px;
+}
+
+.first-header-line > .button-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .connection-button {
   width: 180px;
@@ -65,14 +78,6 @@ header {
   opacity: 0.7;
 }
 
-.question-button {
-  border: rgb(84, 84, 84) solid 2px;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  color: rgb(84, 84, 84);
-}
-
 .first-header-line > div > select {
   border: none;
   outline: none;
@@ -106,41 +111,4 @@ header {
   border-radius: 5px;
   border: none;
   outline: none;
-}
-nav {
-  display: flex;
-  align-items: center;
-}
-
-.nav-button:hover {
-  background-color: rgb(249, 249, 249);
-}
-
-.router-nav {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.range-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 800px;
-  gap: 10px;
-}
-
-.switch-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 200px;
-  font-size: 10px;
-}
-.switch-box > p {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
 }

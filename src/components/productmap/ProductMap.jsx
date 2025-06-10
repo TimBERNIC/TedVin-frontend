@@ -1,13 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
-import { useEffect } from "react";
 import "../productmap/ProductMap.css";
 
-const ProductMap = ({ data }) => {
+const ProductMap = ({ data, setIsLoading }) => {
+  const navigate = useNavigate();
+  const params = useParams();
   return (
     <>
       {data.map((product, index) => {
-        const productWay_id = `http://localhost:5173/item/${product._id}`;
+        const productWayByid = `/item/${product._id}`;
 
         return (
           <div className="product-box" key={index}>
@@ -21,9 +22,13 @@ const ProductMap = ({ data }) => {
               </div>
               {product.owner.account.username}
             </div>
-            <Link to={productWay_id} className="product-img-box">
+            <div
+              onClick={() => {
+                navigate(productWayByid);
+              }}
+              className="product-img-box">
               <img src={product.product_image.secure_url} alt="" />
-            </Link>
+            </div>
             <div className="product-details">
               <p>{product.product_details[0].MARQUE}</p>
               <p>

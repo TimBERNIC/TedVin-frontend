@@ -1,13 +1,6 @@
 import "./App.css";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  useNavigate,
-} from "react-router-dom";
+import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Offer from "./pages/offer/Offer";
 import Header from "./components/header/Header";
@@ -27,44 +20,6 @@ function App() {
   const [priceMax, setPriceMax] = useState(500);
   const [searchingWord, setSearchingWord] = useState("");
   const [sort, setSort] = useState("price-asc");
-  const regex = new RegExp({ searchingWord }, "i");
-
-  // const Url = "https://lereacteur-vinted-api.herokuapp.com/v2/offers";
-
-  useEffect(() => {
-    const fetchData = async () => {
-      let filters = "";
-      if (searchingWord) {
-        filters = filters + `?title=${searchingWord}`;
-      }
-      if (priceMin) {
-        if (filters) {
-          filters = filters + `&priceMin=${priceMin}`;
-        } else {
-          filters = filters + `?priceMin=${priceMin}`;
-        }
-      }
-      if (priceMax) {
-        if (filters) {
-          filters = filters + `&priceMax=${priceMax}`;
-        } else {
-          filters = filters + `?priceMax=${priceMax}`;
-        }
-      }
-
-      try {
-        const response = await axios.get(
-          `https://lereacteur-vinted-api.herokuapp.com/v2/offers?sort=${sort}${filters}`
-        );
-
-        setData(response.data.offers);
-        setIsloading(false);
-      } catch (error) {
-        console.log(error.response);
-      }
-    };
-    fetchData();
-  }, [searchingWord, priceMin, priceMax, sort]);
 
   return (
     <>
@@ -84,38 +39,69 @@ function App() {
           sort={sort}
           setSort={setSort}
         />
-        {isLoading ? (
-          <p>Chargement en cours...</p>
-        ) : (
-          <div>
-            <Routes>
-              <Route path="/" element={<Home data={data} />}></Route>
-              <Route path="/item/:id" element={<Offer data={data} />}></Route>
-              <Route
-                path="/signup"
-                element={
-                  isVisible && (
-                    <SignUp
-                      setIsVisible={setIsVisible}
-                      setToken={setToken}
-                      register={register}
-                      setRegister={setRegister}
-                    />
-                  )
-                }></Route>
-              <Route
-                path="/publish"
-                element={
-                  <Publish
-                    token={token}
-                    isVisible={isVisible}
+        <div>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Home
+                  data={data}
+                  setData={setData}
+                  isVisible={isVisible}
+                  setIsVisible={setIsVisible}
+                  token={token}
+                  setToken={setToken}
+                  setRegister={setRegister}
+                  priceMin={priceMin}
+                  setPriceMin={setPriceMin}
+                  priceMax={priceMax}
+                  setPriceMax={setPriceMax}
+                  searchingWord={searchingWord}
+                  setSearchingWord={setSearchingWord}
+                  sort={sort}
+                  setSort={setSort}
+                />
+              }></Route>
+            <Route
+              path="/item/:id"
+              element={
+                <Offer
+                  data={data}
+                  setData={setData}
+                  searchingWord={searchingWord}
+                />
+              }></Route>
+            <Route
+              path="/signup"
+              element={
+                isVisible && (
+                  <SignUp
                     setIsVisible={setIsVisible}
+                    setToken={setToken}
+                    register={register}
+                    setRegister={setRegister}
+                    data={data}
+                    setData={setData}
+                    isLoading={setIsloading}
+                    setIsloading={setIsloading}
+                    searchingWord={searchingWord}
+                    setSearchingWord={setSearchingWord}
                   />
-                }></Route>
-            </Routes>
-            <FixedNav />
-          </div>
-        )}
+                )
+              }></Route>
+            <Route
+              path="/publish"
+              element={
+                <Publish
+                  token={token}
+                  isVisible={isVisible}
+                  setIsVisible={setIsVisible}
+                />
+              }></Route>
+          </Routes>
+          <FixedNav />
+        </div>
+
         <Footer />
       </Router>
     </>

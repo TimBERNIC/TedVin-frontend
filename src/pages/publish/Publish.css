@@ -4,29 +4,123 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   background-color: #eaedee;
+  width: 100%;
 }
-
+.form-box > h3 {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 35px;
+}
 .form-box > form {
+  display: flex;
+  flex-direction: column;
   width: 100%;
 }
 
 .box {
+  display: flex;
+  flex-direction: column;
+  min-height: 150px;
   margin: 10px;
   border: solid 1px rgb(220, 219, 219);
+  background-color: white;
 }
 
+.display {
+  display: none;
+}
+.picture-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+  background-color: white;
+  padding: 20px;
+  border: solid 1px rgb(243, 243, 243);
+}
+
+.picture-box2 {
+  border: dashed rgb(229, 227, 227) 1px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pictures-label {
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 15px;
+  width: 20%;
+  height: 25%;
+  border: solid 1px #42b2b9;
+  color: #42b2b9;
+  border-radius: 5px;
+}
+.pictures-label:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
+.pictures-label > span {
+  height: 100%;
+  font-weight: bold;
+  font-size: 40px;
+}
 .box2 {
   display: flex;
-  background-color: white;
+  height: 100%;
   padding: 20px;
   border: solid 1px rgb(243, 243, 243);
 }
 .box2 > * {
   width: 50%;
+  flex: 1;
+}
+.box2 > input,
+.box2 > textarea {
+  border: none;
+  border-bottom: solid 2px rgb(244, 244, 244);
+}
+.box2 > input:focus,
+.box2 > textarea:focus {
+  border-bottom: solid 1px rgb(20, 206, 223);
+  outline: none;
+}
+.box2 > input::placeholder,
+.box2 > textarea::placeholder {
+  color: rgb(222, 222, 222);
+  font-size: 16px;
+  font-weight: 550;
+}
+.description-box {
+  min-height: 165px;
+}
+.details-box {
+  min-height: 360px;
+}
+.details-box > * {
+  flex: 1;
 }
 
+.box > .checkbox-box {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 25%;
+  margin-top: 20px;
+  gap: 15px;
+  font-size: 18px;
+}
+.checkbox-box > input {
+  transform: scale(2);
+}
 .button-box {
   width: 100%;
   height: 150px;
