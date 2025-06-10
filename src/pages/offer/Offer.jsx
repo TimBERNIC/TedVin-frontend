@@ -9,7 +9,7 @@ import "../offer/Offer.css";
 const Offer = ({ data, setData, searchingWord }) => {
   const params = useParams();
   const [offerData, setOfferData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingOffer, setIsLoadingOffer] = useState(true);
   const navigate = useNavigate();
   console.log(data);
 
@@ -21,7 +21,7 @@ const Offer = ({ data, setData, searchingWord }) => {
             params.id
         );
         setOfferData(response.data);
-        setIsLoading(false);
+        setIsLoadingOffer(false);
       } catch (error) {
         console.log(error.response);
       }
@@ -42,7 +42,7 @@ const Offer = ({ data, setData, searchingWord }) => {
           `https://site--tedvin-backend--cp75xnbbqn97.code.run/offers${filters}`
         );
         setData(response.data);
-        setIsLoading(false);
+        setIsLoadingOffer(false);
       } catch (error) {
         console.log(error.response);
       }
@@ -53,7 +53,7 @@ const Offer = ({ data, setData, searchingWord }) => {
 
   console.log(offerData);
 
-  return isLoading ? (
+  return isLoadingOffer ? (
     <p>Chargement en cours...</p>
   ) : (
     <div className="offer-global-box">
@@ -142,7 +142,7 @@ const Offer = ({ data, setData, searchingWord }) => {
 
         <div className="offer-products-box">
           <p>articles disponibles</p>
-          <ProductMap data={data} isLoading={isLoading} />
+          <ProductMap data={data} />
         </div>
       </div>
     </div>
