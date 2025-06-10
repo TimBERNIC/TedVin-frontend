@@ -13,8 +13,7 @@ import ValidPublish from "./pages/publish/ValidPublish";
 import Payment from "./pages/payment/Payment";
 
 const App = () => {
-  const [data, setData] = useState([]);
-
+  const [data, setData] = useState(null);
   const [isLoading, setIsloading] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
   const [token, setToken] = useState(Cookies.get("token") || null);

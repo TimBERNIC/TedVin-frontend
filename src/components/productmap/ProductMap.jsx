@@ -3,14 +3,14 @@ import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import { VscAccount } from "react-icons/vsc";
 import "../productmap/ProductMap.css";
 
-const ProductMap = ({ data, setIsLoading }) => {
+const ProductMap = ({ data }) => {
   const navigate = useNavigate();
   const params = useParams();
+  console.log(data[0].owner);
   return (
     <>
-      {data.map((product, index) => {
+      {/* {data.map((product, index) => {
         const productWayByid = `/item/${product._id}`;
-        // console.log(product);
 
         return (
           <div className="product-box" key={index}>
@@ -50,7 +50,7 @@ const ProductMap = ({ data, setIsLoading }) => {
             </div>
           </div>
         );
-      })}
+      })} */}
     </>
   );
 };
