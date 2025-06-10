@@ -1,21 +1,19 @@
 .fixed-bottom-nav {
   display: flex;
+  margin-top: 50px;
+  margin-bottom: 50px;
   justify-content: space-between;
-  align-items: flex-start;
-  border-bottom: #dfdcdc solid 2px;
-  margin: 100px 0 30px;
-  padding: 20px 10px;
-  color: #5a6566;
-  margin-right: 5%;
+  align-items: center;
 }
-.fixed-bottom-nav > ul {
+.fixed-bottom-nav > div > ul {
   flex: 1;
   display: flex;
+  height: 100%;
   flex-direction: column;
-  align-items: flex-start;
+  gap: 10px;
   color: #5a6566;
 }
-.fixed-bottom-nav > ul > h3 {
+.fixed-bottom-nav > div > ul > h3 {
   color: #888d8d;
 }
 .fixed-bottom-nav > ul > li {

@@ -3,7 +3,7 @@ import "../fixedNav/FixedNav.css";
 
 const FixedNav = () => {
   return (
-    <>
+    <div className="container">
       <div className="fixed-bottom-nav">
         <ul>
           <h3>Vinted</h3>
@@ -31,7 +31,7 @@ const FixedNav = () => {
           <li>Confiance et sécurité</li>
         </ul>
       </div>
-    </>
+    </div>
   );
 };
 

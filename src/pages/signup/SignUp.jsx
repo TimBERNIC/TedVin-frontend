@@ -8,6 +8,7 @@ const SignUp = ({ setIsVisible, setToken, register, setRegister }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [avatarPicture, setAvatarPicture] = useState(null);
   const [newsletter, setNewsletter] = useState(false);
   const [error, setError] = useState(false);
 
@@ -58,67 +59,25 @@ const SignUp = ({ setIsVisible, setToken, register, setRegister }) => {
   };
 
   return (
-    <div className="signup-root">
-      <div className="signup-box">
-        <button
-          onClick={() => {
-            setIsVisible(false);
-            navigate("/");
-          }}
-          className="close-signup-button">
-          X
-        </button>
+    <main className="signup-root">
+      <div className="container">
+        <div className="signup-box">
+          <button
+            onClick={() => {
+              setIsVisible(false);
+              navigate("/");
+            }}
+            className="close-signup-button">
+            X
+          </button>
 
-        {register ? (
-          <form
-            onSubmit={(event) => {
-              event.preventDefault();
-              sendFormLogin();
-            }}>
-            <h3>Se connecter</h3>
-            <input
-              type="email"
-              placeholder="Email"
-              name="email"
-              value={email}
-              onChange={(event) => {
-                setEmail(event.target.value);
-              }}
-            />
-            <input
-              type="password"
-              placeholder="Mot de Passe"
-              name="password"
-              value={password}
-              onChange={(event) => {
-                setPassword(event.target.value);
-              }}
-            />
-            {error && (
-              <div className="error-box">
-                Email et/ou Mot de passe invalide{" "}
-              </div>
-            )}
-            <button>Se connecter</button>
-          </form>
-        ) : (
-          <>
+          {register ? (
             <form
               onSubmit={(event) => {
                 event.preventDefault();
-                sendFormSignup();
-              }}
-              action="">
-              <h3>S'inscrire</h3>
-              <input
-                type="text"
-                placeholder="Nom d'utilisateur"
-                name="name"
-                value={name}
-                onChange={(event) => {
-                  setName(event.target.value);
-                }}
-              />
+                sendFormLogin();
+              }}>
+              <h3>Se connecter</h3>
               <input
                 type="email"
                 placeholder="Email"
@@ -137,53 +96,99 @@ const SignUp = ({ setIsVisible, setToken, register, setRegister }) => {
                   setPassword(event.target.value);
                 }}
               />
-              <div className="signup-conditions-box1">
-                <div className="signup-conditions-box2">
-                  <input
-                    type="checkbox"
-                    onClick={() => {
-                      !newsletter ? setNewsletter(true) : setNewsletter(false);
-                    }}
-                    className="signup-checkbox"
-                  />
-
-                  <p>S'inscrire à notre newsletter</p>
+              {error && (
+                <div className="error-box">
+                  Email et/ou Mot de passe invalide{" "}
                 </div>
-                {error && (
-                  <div className="error-box">
-                    Veuillez rentrer, un nom d'utilisateur, un email et un mot
-                    de passe valide
-                  </div>
-                )}
-                <p>
-                  En m'inscrivant je confirme avoir lu et accepté les Termes &
-                  Conditions et Politique de Confidentialité de Vinted. Je
-                  confirme avoir au moins 18 ans.
-                </p>
-              </div>
-              <button>S'inscrire</button>
+              )}
+              <button>Se connecter</button>
             </form>
-          </>
-        )}
-        {!register ? (
-          <div
-            onClick={() => {
-              setRegister(!register);
-            }}
-            className="switch-form-box">
-            Tu as déjà un compte? Connecte-toi!
-          </div>
-        ) : (
-          <div
-            onClick={() => {
-              setRegister(!register);
-            }}
-            className="switch-form-box">
-            Pas encore de compte? Inscris-toi!
-          </div>
-        )}
+          ) : (
+            <>
+              <form
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  sendFormSignup();
+                }}
+                action="">
+                <h3>S'inscrire</h3>
+                <input
+                  type="text"
+                  placeholder="Nom d'utilisateur"
+                  name="name"
+                  value={name}
+                  onChange={(event) => {
+                    setName(event.target.value);
+                  }}
+                />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  name="email"
+                  value={email}
+                  onChange={(event) => {
+                    setEmail(event.target.value);
+                  }}
+                />
+                <input
+                  type="password"
+                  placeholder="Mot de Passe"
+                  name="password"
+                  value={password}
+                  onChange={(event) => {
+                    setPassword(event.target.value);
+                  }}
+                />
+                <div className="signup-conditions-box1">
+                  <div className="signup-conditions-box2">
+                    <input
+                      type="checkbox"
+                      onClick={() => {
+                        !newsletter
+                          ? setNewsletter(true)
+                          : setNewsletter(false);
+                      }}
+                      className="signup-checkbox"
+                    />
+
+                    <p>S'inscrire à notre newsletter</p>
+                  </div>
+                  {error && (
+                    <div className="error-box">
+                      Veuillez rentrer, un nom d'utilisateur, un email et un mot
+                      de passe valide
+                    </div>
+                  )}
+                  <p>
+                    En m'inscrivant je confirme avoir lu et accepté les Termes &
+                    Conditions et Politique de Confidentialité de Vinted. Je
+                    confirme avoir au moins 18 ans.
+                  </p>
+                </div>
+                <button>S'inscrire</button>
+              </form>
+            </>
+          )}
+          {!register ? (
+            <div
+              onClick={() => {
+                setRegister(!register);
+              }}
+              className="switch-form-box">
+              Tu as déjà un compte? Connecte-toi!
+            </div>
+          ) : (
+            <div
+              onClick={() => {
+                setRegister(!register);
+              }}
+              className="switch-form-box">
+              Pas encore de compte? Inscris-toi!
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </main>
   );
 };
 

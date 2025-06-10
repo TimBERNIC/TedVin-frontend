@@ -1,6 +1,9 @@
+footer {
+  width: 100%;
+}
+
 .footer-div-center {
   display: flex;
-  align-items: center;
   justify-content: space-between;
   width: 100%;
 }

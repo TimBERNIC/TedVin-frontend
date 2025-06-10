@@ -25,92 +25,90 @@ const App = () => {
   const [sort, setSort] = useState("price-asc");
 
   return (
-    <>
-      <Router>
-        <Header
-          isVisible={isVisible}
-          setIsVisible={setIsVisible}
-          token={token}
-          setToken={setToken}
-          setRegister={setRegister}
-          priceMin={priceMin}
-          setPriceMin={setPriceMin}
-          priceMax={priceMax}
-          setPriceMax={setPriceMax}
-          searchingWord={searchingWord}
-          setSearchingWord={setSearchingWord}
-          sort={sort}
-          setSort={setSort}
-        />
-        <div>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Home
-                  data={data}
-                  setData={setData}
+    <Router>
+      <Header
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+        token={token}
+        setToken={setToken}
+        setRegister={setRegister}
+        priceMin={priceMin}
+        setPriceMin={setPriceMin}
+        priceMax={priceMax}
+        setPriceMax={setPriceMax}
+        searchingWord={searchingWord}
+        setSearchingWord={setSearchingWord}
+        sort={sort}
+        setSort={setSort}
+      />
+      <div>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home
+                data={data}
+                setData={setData}
+                isVisible={isVisible}
+                setIsVisible={setIsVisible}
+                token={token}
+                setToken={setToken}
+                setRegister={setRegister}
+                priceMin={priceMin}
+                setPriceMin={setPriceMin}
+                priceMax={priceMax}
+                setPriceMax={setPriceMax}
+                searchingWord={searchingWord}
+                setSearchingWord={setSearchingWord}
+                sort={sort}
+                setSort={setSort}
+              />
+            }></Route>
+          <Route
+            path="/item/:id"
+            element={
+              <Offer
+                data={data}
+                setData={setData}
+                searchingWord={searchingWord}
+              />
+            }></Route>
+          <Route path="/payment" element={<Payment />}></Route>
+          <Route
+            path="/signup"
+            element={
+              isVisible && (
+                <SignUp
                   isVisible={isVisible}
                   setIsVisible={setIsVisible}
-                  token={token}
                   setToken={setToken}
+                  register={register}
                   setRegister={setRegister}
-                  priceMin={priceMin}
-                  setPriceMin={setPriceMin}
-                  priceMax={priceMax}
-                  setPriceMax={setPriceMax}
+                  data={data}
+                  setData={setData}
+                  isLoading={setIsloading}
+                  setIsloading={setIsloading}
                   searchingWord={searchingWord}
                   setSearchingWord={setSearchingWord}
-                  sort={sort}
-                  setSort={setSort}
                 />
-              }></Route>
-            <Route
-              path="/item/:id"
-              element={
-                <Offer
-                  data={data}
-                  setData={setData}
-                  searchingWord={searchingWord}
-                />
-              }></Route>
-            <Route path="/payment" element={<Payment />}></Route>
-            <Route
-              path="/signup"
-              element={
-                isVisible && (
-                  <SignUp
-                    isVisible={isVisible}
-                    setIsVisible={setIsVisible}
-                    setToken={setToken}
-                    register={register}
-                    setRegister={setRegister}
-                    data={data}
-                    setData={setData}
-                    isLoading={setIsloading}
-                    setIsloading={setIsloading}
-                    searchingWord={searchingWord}
-                    setSearchingWord={setSearchingWord}
-                  />
-                )
-              }></Route>
-            <Route
-              path="/publish"
-              element={
-                <Publish
-                  token={token}
-                  isVisible={isVisible}
-                  setIsVisible={setIsVisible}
-                />
-              }></Route>
-            <Route path="/publish/valid" element={<ValidPublish />}></Route>
-          </Routes>
-          <FixedNav />
-        </div>
+              )
+            }></Route>
+          <Route
+            path="/publish"
+            element={
+              <Publish
+                token={token}
+                isVisible={isVisible}
+                setIsVisible={setIsVisible}
+              />
+            }></Route>
+          <Route path="/publish/valid" element={<ValidPublish />}></Route>
+        </Routes>
+        <FixedNav />
+      </div>
 
-        <Footer />
-      </Router>
-    </>
+      <Footer />
+    </Router>
   );
 };
 

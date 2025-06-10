@@ -60,80 +60,85 @@ const Home = ({
 
   return (
     <main className="home-main">
-      <nav className="router-nav">
-        <div className="switch-box">
-          <p>Prix croiss/décroiss</p>
-          <input
-            type="checkbox"
-            value={sort}
-            onChange={() => {
-              setSort(sort === "price-desc" ? "price-asc" : "price-desc");
-            }}
-          />
-        </div>
-        <div className="range-box">
-          <div>prix min : {priceMin}</div>
-          <input
-            type="range"
-            name="price-min"
-            placeholder="min"
-            value={priceMin}
-            onChange={(event) => {
-              setPriceMin(event.target.value);
-            }}
-            min="0"
-            max="500"
-          />
-          <div>prix max : {priceMax}</div>
-          <input
-            type="range"
-            name="price-max"
-            placeholder="max"
-            value={priceMax}
-            onChange={(event) => {
-              setPriceMax(event.target.value);
-            }}
-            min="0"
-            max="500"
-          />{" "}
-        </div>
-      </nav>
-      {isLoading ? (
-        <p>Chargement en cours...</p>
-      ) : (
-        <main className="home-box container">
-          <section className="first-section">
-            <div className="firstsection-img-div">
-              <img
-                src={firstImg}
-                alt="femme devant un miroir avec son téléphone"
-              />
-            </div>
-            <div className="h1-div">
-              <h1>Prêt à faire du tri dans tes placards ?</h1>
-              <span
-                className="h1-span1"
-                onClick={() => {
-                  if (token) {
-                    navigate("/publish");
-                  } else {
-                    navigate("/signup");
-                    setIsVisible(!isVisible);
-                  }
-                }}>
-                Commencer à vendre
-              </span>
-            </div>
-          </section>
+      <div className="container">
+        <nav className="router-nav">
+          <div className="switch-box">
+            <p>Prix croiss/décroiss</p>
+            <input
+              type="checkbox"
+              value={sort}
+              onChange={() => {
+                setSort(sort === "price-desc" ? "price-asc" : "price-desc");
+              }}
+            />
+          </div>
+          <div className="range-box">
+            <div>prix min : {priceMin}</div>
+            <input
+              type="range"
+              name="price-min"
+              placeholder="min"
+              value={priceMin}
+              onChange={(event) => {
+                setPriceMin(event.target.value);
+              }}
+              min="0"
+              max="500"
+            />
+            <div>prix max : {priceMax}</div>
+            <input
+              type="range"
+              name="price-max"
+              placeholder="max"
+              value={priceMax}
+              onChange={(event) => {
+                setPriceMax(event.target.value);
+              }}
+              min="0"
+              max="500"
+            />{" "}
+          </div>
+        </nav>
 
-          <section className="second-section">
-            <h2>Fil d'actu</h2>
-            <div className="home-products-box">
-              <ProductMap data={data} />
+        {isLoading ? (
+          <p>Chargement en cours...</p>
+        ) : (
+          <main className="home-box">
+            <div className="container">
+              <section className="first-section">
+                <div className="firstsection-img-div">
+                  <img
+                    src={firstImg}
+                    alt="femme devant un miroir avec son téléphone"
+                  />
+                </div>
+                <div className="h1-div">
+                  <h1>Prêt à faire du tri dans tes placards ?</h1>
+                  <span
+                    className="h1-span1"
+                    onClick={() => {
+                      if (token) {
+                        navigate("/publish");
+                      } else {
+                        navigate("/signup");
+                        setIsVisible(!isVisible);
+                      }
+                    }}>
+                    Commencer à vendre
+                  </span>
+                </div>
+              </section>
+
+              <section className="second-section">
+                <h2>Fil d'actu</h2>
+                <div className="home-products-box">
+                  <ProductMap data={data} />
+                </div>
+              </section>
             </div>
-          </section>
-        </main>
-      )}
+          </main>
+        )}
+      </div>
     </main>
   );
 };
