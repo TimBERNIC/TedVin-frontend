@@ -21,3 +21,15 @@
 .Elements-box {
   width: 100%;
 }
+
+.final-payment-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  font-weight: bold;
+  background-color: white;
+  border-radius: 5px;
+  font-size: 18px;
+  padding: 20px;
+}

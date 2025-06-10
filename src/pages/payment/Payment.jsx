@@ -18,7 +18,6 @@ const Payment = () => {
   const livraisonPrice = price.price * 0.15;
   const total = price.price + protectionPrice + livraisonPrice;
   const amount = total * 100;
-  console.log(price);
 
   const options = {
     mode: "payment",

@@ -66,7 +66,7 @@ const CheckoutForm = ({ title, price, amount }) => {
   };
 
   return completed ? (
-    <p>Vous avez bien finalisé le paiement !</p>
+    <p className="final-payment-box">Vous avez bien finalisé le paiement !</p>
   ) : (
     <form onSubmit={handleSubmit} className="checkform-box">
       <div className="checkform-box1">
