@@ -42,7 +42,7 @@ const Publish = ({ token, isVisible, setIsVisible }) => {
             // }
             try {
               const response = await axios.post(
-                "https://lereacteur-vinted-api.herokuapp.com/offer/publish",
+                "https://site--tedvin-backend--cp75xnbbqn97.code.run/offer/publish",
                 formData,
                 {
                   headers: {

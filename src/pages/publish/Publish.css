@@ -82,11 +82,14 @@
   border-radius: 5px;
   gap: 5px;
   position: relative;
+  height: 150px;
 }
 .preview-box > img {
+  border: solid 2px rgb(0, 9, 179);
   width: 100%;
   object-fit: cover;
   border-radius: 5px;
+  max-height: 150px;
 }
 .preview-box > button {
   position: absolute;
@@ -94,7 +97,7 @@
   border-radius: 5px;
   border: none;
   color: white;
-  top: 2px;
+  top: 0;
   right: 2px;
 }
 .box2 {

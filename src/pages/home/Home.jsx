@@ -134,7 +134,7 @@ const Home = ({
               <section className="second-section">
                 <h2>Fil d'actu</h2>
                 <div className="home-products-box">
-                  <ProductMap data={data} />
+                  <ProductMap data={data} isLoading={isLoading} />
                 </div>
               </section>
             </div>

@@ -1,12 +1,13 @@
 .signup-root {
-  height: 100vh;
+  height: 100%;
   position: absolute;
-  width: 100vw;
+  width: 100%;
   top: 0;
   left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: solid 2px rgb(0, 9, 179);
   background-color: rgba(0, 0, 0, 0.5);
 }
 .signup-box {

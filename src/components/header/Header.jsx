@@ -49,6 +49,8 @@ const Header = ({
                     setRegister(false);
                     setToken(null);
                     Cookies.remove("token");
+                    navigate("/");
+                    setIsVisible(false);
                   }}
                   className="deconnection-button">
                   Se déconnecter
@@ -57,7 +59,7 @@ const Header = ({
                 <button
                   onClick={() => {
                     navigate("/signup");
-                    setIsVisible(!isVisible);
+                    setIsVisible(true);
                   }}
                   to="/signup"
                   className="connection-button">
