@@ -62,6 +62,8 @@ const App = () => {
                 setSearchingWord={setSearchingWord}
                 sort={sort}
                 setSort={setSort}
+                isLoading={isLoading}
+                setIsloading={setIsloading}
               />
             }></Route>
           <Route
@@ -71,6 +73,8 @@ const App = () => {
                 data={data}
                 setData={setData}
                 searchingWord={searchingWord}
+                isLoading={isLoading}
+                setIsloading={setIsloading}
               />
             }></Route>
           <Route path="/payment" element={<Payment />}></Route>

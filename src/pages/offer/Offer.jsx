@@ -6,10 +6,10 @@ import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import { VscAccount } from "react-icons/vsc";
 import "../offer/Offer.css";
 
-const Offer = ({ data, setData, searchingWord }) => {
+const Offer = ({ data, setData, searchingWord, isLoading, setIsLoading }) => {
   const params = useParams();
   const [offerData, setOfferData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingOffer, setIsLoadingOffer] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const Offer = ({ data, setData, searchingWord }) => {
           `https://lereacteur-vinted-api.herokuapp.com/offer/` + params.id
         );
         setOfferData(response.data);
-        setIsLoading(false);
+        setIsLoadingOffer(false);
       } catch (error) {
         console.log(error.response);
       }
@@ -40,7 +40,7 @@ const Offer = ({ data, setData, searchingWord }) => {
           `https://lereacteur-vinted-api.herokuapp.com/v2/offers${filters}`
         );
         setData(response.data.offers);
-        setIsLoading(false);
+        setIsLoadingOffer(false);
       } catch (error) {
         console.log(error.response);
       }
@@ -49,7 +49,7 @@ const Offer = ({ data, setData, searchingWord }) => {
     fetchData();
   }, [searchingWord]);
 
-  return isLoading ? (
+  return isLoadingOffer ? (
     <p>Chargement en cours...</p>
   ) : (
     <div className="offer-global-box">

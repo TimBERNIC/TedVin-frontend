@@ -131,7 +131,6 @@ const Home = ({
                   </span>
                 </div>
               </section>
-
               <section className="second-section">
                 <h2>Fil d'actu</h2>
                 <div className="home-products-box">
