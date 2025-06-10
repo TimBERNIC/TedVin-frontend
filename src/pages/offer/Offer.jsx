@@ -1,14 +1,16 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ProductMap from "../../components/productmap/ProductMap";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
+import { VscAccount } from "react-icons/vsc";
 import "../offer/Offer.css";
 
 const Offer = ({ data, setData, searchingWord }) => {
   const params = useParams();
   const [offerData, setOfferData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchOfferData = async () => {
@@ -106,12 +108,24 @@ const Offer = ({ data, setData, searchingWord }) => {
                 {offerData.owner.account.avatar ? (
                   <img src={offerData.owner.account.avatar.url} alt="" />
                 ) : (
-                  <img></img>
+                  <div>
+                    <VscAccount size="25px" />
+                  </div>
                 )}
               </div>
               {offerData.owner.account.username}
             </div>
-            <button className="buy-button">Acheter</button>
+            <button
+              className="buy-button"
+              onClick={() => {
+                const title = offerData.product_name;
+                const price = offerData.product_price;
+                navigate("/payment", {
+                  state: { title: { title }, price: { price } },
+                });
+              }}>
+              Acheter
+            </button>
           </div>
         </div>
       </div>

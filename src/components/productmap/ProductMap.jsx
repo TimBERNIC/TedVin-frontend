@@ -1,5 +1,6 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
+import { VscAccount } from "react-icons/vsc";
 import "../productmap/ProductMap.css";
 
 const ProductMap = ({ data, setIsLoading }) => {
@@ -15,9 +16,14 @@ const ProductMap = ({ data, setIsLoading }) => {
             <div className="avatar-box">
               <div className="avatar-logo-box">
                 {product.owner.account.avatar ? (
-                  <img src={product.owner.account.avatar.url} alt="" />
+                  <img
+                    src={product.owner.account.avatar.url}
+                    alt="avatar-logo"
+                  />
                 ) : (
-                  <img></img>
+                  <div>
+                    <VscAccount size="25px" />
+                  </div>
                 )}
               </div>
               {product.owner.account.username}

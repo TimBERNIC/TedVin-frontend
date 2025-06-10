@@ -1,11 +1,12 @@
 import { useState } from "react";
 import "../publish/Publish.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+
+import { useNavigate, Navigate } from "react-router-dom";
 
 const Publish = ({ token, isVisible, setIsVisible }) => {
   const navigate = useNavigate();
-  const [picture, setPicture] = useState("");
+  const [picture, setPicture] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [condition, setCondition] = useState("");
@@ -14,6 +15,7 @@ const Publish = ({ token, isVisible, setIsVisible }) => {
   const [color, setColor] = useState("");
   const [city, setCity] = useState("");
   const [price, setPrice] = useState("");
+  const [preview, setPreview] = useState(null);
 
   return (
     <main className="form-box container">
@@ -34,8 +36,8 @@ const Publish = ({ token, isVisible, setIsVisible }) => {
           for (let i = 0; i < picture.length; i++) {
             formData.append("picture", picture[i]);
           }
-          // for (let pairClefValeur of formData.entries()) {
-          //   console.log(pairClefValeur[0] + ", " + pairClefValeur[1]);
+          // for (let pairKeyValue of formData.entries()) {
+          //   console.log(pairKeyValue[0] + ", " + pairKeyValue[1]);
           // }
           try {
             const response = await axios.post(
@@ -49,8 +51,7 @@ const Publish = ({ token, isVisible, setIsVisible }) => {
               }
             );
             console.log(response);
-            alert("Annonce déposée!");
-            navigate("/");
+            navigate("/publish/valid");
           } catch (error) {
             console.log(error.response);
             error.response.status === 401 && navigate("/signup");
@@ -61,7 +62,16 @@ const Publish = ({ token, isVisible, setIsVisible }) => {
           <div className="picture-box">
             <div className="picture-box2">
               {picture ? (
-                <div className="pictures-label"> Image(s) déposée(s) !</div>
+                <div className="preview-box">
+                  <img src={preview} alt="photo-déposée" />
+                  <button
+                    onClick={() => {
+                      setPreview(null);
+                      setPicture(null);
+                    }}>
+                    x
+                  </button>
+                </div>
               ) : (
                 <>
                   <label htmlFor="pictures" className="pictures-label">
@@ -74,10 +84,15 @@ const Publish = ({ token, isVisible, setIsVisible }) => {
                     multiple={true}
                     onChange={(event) => {
                       const pictureTab = [];
+                      const previewTab = [];
                       for (let i = 0; i < event.target.files.length; i++) {
                         pictureTab.push(event.target.files[i]);
+                        previewTab.push(
+                          URL.createObjectURL(event.target.files[i])
+                        );
                       }
                       setPicture(pictureTab);
+                      setPreview(previewTab);
                     }}
                   />
                 </>

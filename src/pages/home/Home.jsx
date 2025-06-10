@@ -1,14 +1,17 @@
 import { useEffect } from "react";
-import firstImg from "../../assets/img/first-img.jpg";
+import { useNavigate } from "react-router-dom";
+import firstImg from "../../assets/img/first-img.png";
 import ProductMap from "../../components/productmap/ProductMap";
 import "../home/Home.css";
 import axios from "axios";
 
 const Home = ({
+  token,
   data,
   setData,
   searchingWord,
-  setSearchingWord,
+  setIsVisible,
+  isVisible,
   priceMin,
   setPriceMin,
   priceMax,
@@ -18,6 +21,8 @@ const Home = ({
   sort,
   setSort,
 }) => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchData = async () => {
       let filters = `?sort=${sort}`;
@@ -54,7 +59,7 @@ const Home = ({
   }, [searchingWord, priceMin, priceMax, sort]);
 
   return (
-    <>
+    <main className="home-main">
       <nav className="router-nav">
         <div className="switch-box">
           <p>Prix croiss/décroiss</p>
@@ -106,8 +111,18 @@ const Home = ({
             </div>
             <div className="h1-div">
               <h1>Prêt à faire du tri dans tes placards ?</h1>
-              <span className="h1-span1">Commencer à vendre</span>
-              <span className="h1-span2">Découvrir comment ça marche</span>
+              <span
+                className="h1-span1"
+                onClick={() => {
+                  if (token) {
+                    navigate("/publish");
+                  } else {
+                    navigate("/signup");
+                    setIsVisible(!isVisible);
+                  }
+                }}>
+                Commencer à vendre
+              </span>
             </div>
           </section>
 
@@ -119,7 +134,7 @@ const Home = ({
           </section>
         </main>
       )}
-    </>
+    </main>
   );
 };
 

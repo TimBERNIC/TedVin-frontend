@@ -73,6 +73,30 @@
   font-weight: bold;
   font-size: 40px;
 }
+.preview-box {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 150px;
+  border-radius: 5px;
+  gap: 5px;
+  position: relative;
+  border: solid 2px rgb(0, 9, 179);
+}
+.preview-box > img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.preview-box > button {
+  position: absolute;
+  background-color: rgba(247, 60, 60, 0.735);
+  border-radius: 5px;
+  border: none;
+  color: white;
+  top: 2px;
+  right: 2px;
+}
 .box2 {
   display: flex;
   height: 100%;

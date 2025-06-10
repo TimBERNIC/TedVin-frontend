@@ -1,11 +1,19 @@
+.home-main {
+  margin: 0 auto;
+  max-width: 1920px;
+  background-color: white;
+}
+
 .first-section {
   width: 100%;
   position: relative;
 }
 
 .firstsection-img-div {
-  margin: 0 -20px;
-  width: 110%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 100%;
   height: 720px;
 }
 
@@ -15,6 +23,13 @@
   object-fit: cover;
 }
 
+.h1-div {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  border-radius: 5px;
+  border: solid 1px rgb(168, 168, 168);
+}
 .h1-span1 {
   display: flex;
   justify-content: center;
@@ -23,21 +38,14 @@
   background-color: #02757f;
   height: 20%;
   border-radius: 5px;
-  width: 100%;
+  width: 50%;
   font-size: 16px;
   line-height: 22px;
 }
 
-.h1-span2 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #007782;
-  height: 20%;
-  border-radius: 5px;
-  width: 100%;
-  font-size: 16px;
-  line-height: 22px;
+.h1-span1:hover {
+  opacity: 0.8;
+  cursor: pointer;
 }
 
 .second-section {

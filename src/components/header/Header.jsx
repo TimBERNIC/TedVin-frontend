@@ -67,7 +67,12 @@ const Header = ({
               <button
                 className="selling-button"
                 onClick={() => {
-                  navigate("/publish");
+                  if (token) {
+                    navigate("/publish");
+                  } else {
+                    navigate("/signup");
+                    setIsVisible(!isVisible);
+                  }
                 }}>
                 Vendre tes articles
               </button>

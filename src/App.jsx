@@ -9,9 +9,12 @@ import Footer from "./components/footer/Footer";
 import SignUp from "./pages/signup/SignUp";
 import Cookies from "js-cookie";
 import Publish from "./pages/publish/Publish";
+import ValidPublish from "./pages/publish/ValidPublish";
+import Payment from "./pages/payment/Payment";
 
-function App() {
+const App = () => {
   const [data, setData] = useState([]);
+
   const [isLoading, setIsloading] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
   const [token, setToken] = useState(Cookies.get("token") || null);
@@ -71,11 +74,13 @@ function App() {
                   searchingWord={searchingWord}
                 />
               }></Route>
+            <Route path="/payment" element={<Payment />}></Route>
             <Route
               path="/signup"
               element={
                 isVisible && (
                   <SignUp
+                    isVisible={isVisible}
                     setIsVisible={setIsVisible}
                     setToken={setToken}
                     register={register}
@@ -98,6 +103,7 @@ function App() {
                   setIsVisible={setIsVisible}
                 />
               }></Route>
+            <Route path="/publish/valid" element={<ValidPublish />}></Route>
           </Routes>
           <FixedNav />
         </div>
@@ -106,6 +112,6 @@ function App() {
       </Router>
     </>
   );
-}
+};
 
 export default App;

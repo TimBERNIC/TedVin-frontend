@@ -1,0 +1,22 @@
+.validate-box {
+  width: 100%;
+  background-color: white;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 25px;
+}
+.validate-box > button {
+  width: 200px;
+  height: 40px;
+  border-radius: 10px;
+  color: white;
+  background-color: #42b2b9;
+  border: none;
+}
+.validate-box > button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
