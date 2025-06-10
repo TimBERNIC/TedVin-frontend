@@ -22,6 +22,7 @@ const Home = ({
   setSort,
 }) => {
   const navigate = useNavigate();
+  console.log(data);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,7 +48,9 @@ const Home = ({
       try {
         const response = await axios.get(
           `https://lereacteur-vinted-api.herokuapp.com/v2/offers${filters}`
+          // `https://site--tedvin-backend--cp75xnbbqn97.code.run/offers${filters}`
         );
+        // setData(response.data);
         setData(response.data.offers);
         setIsloading(false);
       } catch (error) {

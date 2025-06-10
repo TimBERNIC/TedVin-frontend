@@ -10,6 +10,7 @@ const ProductMap = ({ data, setIsLoading }) => {
     <>
       {data.map((product, index) => {
         const productWayByid = `/item/${product._id}`;
+        // console.log(product);
 
         return (
           <div className="product-box" key={index}>
