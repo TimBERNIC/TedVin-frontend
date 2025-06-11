@@ -72,7 +72,7 @@ const Header = ({
                   if (token) {
                     navigate("/publish");
                   } else {
-                    navigate("/signup");
+                    navigate("/signup", { state: { from: "/publish" } });
                     setIsVisible(!isVisible);
                   }
                 }}>

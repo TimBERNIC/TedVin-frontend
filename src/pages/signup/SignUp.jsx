@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../signup/SignUp.css";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 
 const SignUp = ({
@@ -19,6 +19,7 @@ const SignUp = ({
   const [error, setError] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const sendFormLogin = async () => {
     try {
@@ -33,7 +34,11 @@ const SignUp = ({
         setToken(response.data.token);
         setError(false);
         Cookies.set("token", response.data.token, { expires: 7 });
-        navigate("/");
+        if (location.state) {
+          navigate(location.state.from);
+        } else {
+          navigate("/");
+        }
       }
     } catch (error) {
       setError(true);
@@ -57,7 +62,11 @@ const SignUp = ({
         setToken(response.data.token);
         setError(false);
         Cookies.set("token", response.data.token, { expires: 7 });
-        navigate("/");
+        if (location.state) {
+          navigate(location.state.from);
+        } else {
+          navigate("/");
+        }
       }
     } catch (error) {
       setError(true);

@@ -1,6 +1,6 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import "./Payment.css";
 
 import CheckoutForm from "../../components/checkoutform/CheckoutForm";
@@ -10,9 +10,13 @@ import CheckoutForm from "../../components/checkoutform/CheckoutForm";
 const stripePromise = loadStripe(
   "pk_test_51HCObyDVswqktOkX6VVcoA7V2sjOJCUB4FBt3EOiAdSz5vWudpWxwcSY8z2feWXBq6lwMgAb5IVZZ1p84ntLq03H00LDVc2RwP"
 );
+console.log(location.state);
 
 const Payment = () => {
   const location = useLocation();
+  if (!location.state) {
+    return alert("veuillez sélectionner une offre"), (<Navigate to="/" />);
+  }
   const { title, price } = location.state;
   const protectionPrice = 0.59;
   const livraisonPrice = price.price * 0.15;
