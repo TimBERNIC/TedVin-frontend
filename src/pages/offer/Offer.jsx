@@ -6,8 +6,9 @@ import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import { VscAccount } from "react-icons/vsc";
 import "../offer/Offer.css";
 
-const Offer = ({ data, setData, searchingWord }) => {
+const Offer = ({ data, setData, searchingWord, isLoading, setIsLoading }) => {
   const params = useParams();
+
   const [offerData, setOfferData] = useState([]);
   const [isLoadingOffer, setIsLoadingOffer] = useState(true);
   const navigate = useNavigate();
@@ -41,7 +42,9 @@ const Offer = ({ data, setData, searchingWord }) => {
         const response = await axios.get(
           `https://site--tedvin-backend--cp75xnbbqn97.code.run/offers${filters}`
         );
+
         setData(response.data);
+
         setIsLoadingOffer(false);
       } catch (error) {
         console.log(error.response);
@@ -50,8 +53,6 @@ const Offer = ({ data, setData, searchingWord }) => {
 
     fetchData();
   }, [searchingWord]);
-
-  console.log(offerData);
 
   return isLoadingOffer ? (
     <p>Chargement en cours...</p>
