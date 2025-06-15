@@ -3,15 +3,16 @@ import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import { VscAccount } from "react-icons/vsc";
 import "../productmap/ProductMap.css";
 
-const ProductMap = ({ data, setIsLoading }) => {
+const ProductMap = ({ data, isLoading }) => {
   const navigate = useNavigate();
   const params = useParams();
-  return (
+
+  return !data ? (
+    <p>Chargement en cours...</p>
+  ) : (
     <>
       {data.map((product, index) => {
         const productWayByid = `/item/${product._id}`;
-        // console.log(product);
-
         return (
           <div className="product-box" key={index}>
             <div className="avatar-box">
@@ -37,10 +38,10 @@ const ProductMap = ({ data, setIsLoading }) => {
               <img src={product.product_image.secure_url} alt="" />
             </div>
             <div className="product-details">
-              <p>{product.product_details[0].MARQUE}</p>
+              <p>{product.product_details[2].MARQUE}</p>
               <p>
-                {product.product_details[1].TAILLE} -
-                {product.product_details[2].ETAT}
+                {product.product_details[3].TAILLE} -
+                {product.product_details[0].ETAT}
               </p>
               <p>{product.product_price.toFixed(2)} €</p>
               <p className="final-price-box">

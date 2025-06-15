@@ -7,7 +7,7 @@ import {
   PaymentElement,
 } from "@stripe/react-stripe-js";
 
-const CheckoutForm = ({ title, price, amount }) => {
+const CheckoutForm = ({ title, amount }) => {
   console.log(amount);
   const stripe = useStripe();
   const elements = useElements();
@@ -67,6 +67,8 @@ const CheckoutForm = ({ title, price, amount }) => {
 
   return completed ? (
     <p className="final-payment-box">Vous avez bien finalisé le paiement !</p>
+  ) : isLoading ? (
+    <p>CHargement... </p>
   ) : (
     <form onSubmit={handleSubmit} className="checkform-box">
       <div className="checkform-box1">

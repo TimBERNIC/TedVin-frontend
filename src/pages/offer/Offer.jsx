@@ -8,15 +8,18 @@ import "../offer/Offer.css";
 
 const Offer = ({ data, setData, searchingWord, isLoading, setIsLoading }) => {
   const params = useParams();
-  const [offerData, setOfferData] = useState(null);
+
+  const [offerData, setOfferData] = useState([]);
   const [isLoadingOffer, setIsLoadingOffer] = useState(true);
   const navigate = useNavigate();
+  console.log(data);
 
   useEffect(() => {
     const fetchOfferData = async () => {
       try {
         const response = await axios.get(
-          `https://lereacteur-vinted-api.herokuapp.com/offer/` + params.id
+          `https://site--tedvin-backend--cp75xnbbqn97.code.run/offers/` +
+            params.id
         );
         setOfferData(response.data);
         setIsLoadingOffer(false);
@@ -37,9 +40,11 @@ const Offer = ({ data, setData, searchingWord, isLoading, setIsLoading }) => {
           filters = searchingWord && `?title=${searchingWord}`;
         }
         const response = await axios.get(
-          `https://lereacteur-vinted-api.herokuapp.com/v2/offers${filters}`
+          `https://site--tedvin-backend--cp75xnbbqn97.code.run/offers${filters}`
         );
-        setData(response.data.offers);
+
+        setData(response.data);
+
         setIsLoadingOffer(false);
       } catch (error) {
         console.log(error.response);
@@ -57,13 +62,18 @@ const Offer = ({ data, setData, searchingWord, isLoading, setIsLoading }) => {
         <div className="offer-central-box">
           <div className="offer-product-box">
             <div className="pictures-product-box">
-              {offerData.product_pictures.map((picture, index) => {
+              <div>
+                <img src={offerData.product_image.secure_url} alt="" />
+              </div>
+
+              {/* VERSION POUR TABLEAU DE D'IMAGE NOG2R2 EN BACKEND */}
+              {/* {offerData.product_image.map((picture, index) => {
                 return (
                   <div key={index}>
                     <img src={picture.secure_url} alt="" />
                   </div>
                 );
-              })}
+              })} */}
             </div>
           </div>
           <div className="laterals-details-box">
@@ -80,23 +90,23 @@ const Offer = ({ data, setData, searchingWord, isLoading, setIsLoading }) => {
               </h2>
               <div className="littlebox">
                 <span className="box-title">MARQUE : </span>{" "}
-                <span>{offerData.product_details[0]?.MARQUE}</span>
+                <span>{offerData.product_details[2]?.MARQUE}</span>
               </div>
               <div className="littlebox product-size">
                 <span className="box-title">TAILLE : </span>{" "}
-                <span> {offerData.product_details[1]?.TAILLE}</span>
+                <span> {offerData.product_details[3]?.TAILLE}</span>
               </div>
               <div className="littlebox product-condition">
                 <span className="box-title">ETAT : </span>{" "}
-                <span> {offerData.product_details[2]?.ÉTAT}</span>
+                <span> {offerData.product_details[0]?.ETAT}</span>
               </div>
               <div className="littlebox product-color">
                 <span className="box-title">COULEUR : </span>{" "}
-                <span> {offerData.product_details[3]?.COULEUR}</span>
+                <span> {offerData.product_details[4]?.COULEUR}</span>
               </div>
               <div className="littlebox product-localisation">
                 <span className="box-title">EMPLACEMENT : </span>{" "}
-                <span> {offerData.product_details[4]?.EMPLACEMENT}</span>
+                <span> {offerData.product_details[1]?.EMPLACEMENT}</span>
               </div>
             </div>
             <div className="inferior-lateral-box">
@@ -132,8 +142,8 @@ const Offer = ({ data, setData, searchingWord, isLoading, setIsLoading }) => {
         </div>
 
         <div className="offer-products-box">
-          <p>{data.length} articles disponibles</p>
-          <ProductMap data={data} setIsLoading={setIsLoading} />
+          <p>articles disponibles</p>
+          <ProductMap data={data} />
         </div>
       </div>
     </div>

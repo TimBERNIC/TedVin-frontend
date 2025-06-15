@@ -1,10 +1,16 @@
 import { useState } from "react";
 import "../signup/SignUp.css";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 
-const SignUp = ({ setIsVisible, setToken, register, setRegister }) => {
+const SignUp = ({
+  isVisible,
+  setIsVisible,
+  setToken,
+  register,
+  setRegister,
+}) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,11 +19,12 @@ const SignUp = ({ setIsVisible, setToken, register, setRegister }) => {
   const [error, setError] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const sendFormLogin = async () => {
     try {
       const response = await axios.post(
-        "https://lereacteur-vinted-api.herokuapp.com/user/login",
+        "https://site--tedvin-backend--cp75xnbbqn97.code.run/user/login",
         {
           email: email,
           password: password,
@@ -27,7 +34,11 @@ const SignUp = ({ setIsVisible, setToken, register, setRegister }) => {
         setToken(response.data.token);
         setError(false);
         Cookies.set("token", response.data.token, { expires: 7 });
-        navigate("/");
+        if (location.state) {
+          navigate(location.state.from);
+        } else {
+          navigate("/");
+        }
       }
     } catch (error) {
       setError(true);
@@ -38,7 +49,7 @@ const SignUp = ({ setIsVisible, setToken, register, setRegister }) => {
   const sendFormSignup = async () => {
     try {
       const response = await axios.post(
-        "https://lereacteur-vinted-api.herokuapp.com/user/signup",
+        "https://site--tedvin-backend--cp75xnbbqn97.code.run/user/signup",
         {
           email: email,
           username: name,
@@ -46,11 +57,16 @@ const SignUp = ({ setIsVisible, setToken, register, setRegister }) => {
           newsletter: newsletter,
         }
       );
+
       if (response.data.token) {
         setToken(response.data.token);
         setError(false);
         Cookies.set("token", response.data.token, { expires: 7 });
-        navigate("/");
+        if (location.state) {
+          navigate(location.state.from);
+        } else {
+          navigate("/");
+        }
       }
     } catch (error) {
       setError(true);
